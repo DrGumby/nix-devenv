@@ -1,11 +1,18 @@
 {
-  description = "A very basic flake";
+  description = "Basic development shell environment";
 
-  outputs = { self, nixpkgs }: {
-
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
-
-  };
+  outputs = { self, nixpkgs }:
+    let pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in {
+      devShell.x86_64-linux = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          clang
+          gcc
+          python3Full
+        ];
+        shellHook = ''
+          echo "Welcome to the dev environment"
+        '';
+      };
+    };
 }

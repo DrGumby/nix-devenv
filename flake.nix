@@ -9,6 +9,10 @@
           clang
           gcc
           python3Full
+          tigervnc
+          sshfs
+          nodejs
+          nodePackages.npm
         ];
         shellHook = ''
           echo "Welcome to the dev environment"
